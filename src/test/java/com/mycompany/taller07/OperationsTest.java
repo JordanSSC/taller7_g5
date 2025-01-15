@@ -1,67 +1,61 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package com.mycompany.taller07;
 
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author CltControl
- */
 public class OperationsTest {
-    
-    public OperationsTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
 
-    /**
-     * Test of MakeFormula method, of class Operations.
-     */
+    // Test de Jordan
     @Test
-    public void testMakeFormula() {
-        System.out.println("MakeFormula");
-        String expResult = "";
-        String result = Operations.MakeFormula();
-        assertEquals(expResult, result);
-
+    public void testMakeFormulaUnaOperacion() {
+        String formula = Operations.MakeFormula();
+        assertTrue(formula.length() >= 3 && formula.length() <= 5, "La fórmula generada no tiene el formato esperado.");
     }
-
-    /**
-     * Test of Solve method, of class Operations.
-     */
+    // Test de Geovanny
     @Test
-    public void testSolve() {
-        System.out.println("Solve");
-        String formula = "";
-        String expResult = "";
+    public void testMakeFormulaDosOperadores() {
+        String formula = Operations.MakeFormula();
+        assertTrue(formula.length() >= 5 && formula.length() <= 7, "La fórmula generada no tiene el formato esperado.");
+    }
+    // Test de David
+    @Test
+    public void testMakeFormulaCaracteresValidos() {
+        String formula = Operations.MakeFormula();
+        assertTrue(formula.matches("[0-9\\+\\-\\*/]+"), "La fórmula generada contiene caracteres no válidos.");
+    }
+    // Test de Jordan
+    @Test
+    public void testSolveSumar() {
+        String formula = "4+6";
         String result = Operations.Solve(formula);
-        assertEquals(expResult, result);
-        
+        assertEquals("4+6=10", result, "El resultado de la operación es incorrecto.");
     }
-    
-    
-    
+    // Test de Anthony
+    @Test
+    public void testSolveMultiplicarYSumar() {
+
+        String formula = "3+2*5";
+        String result = Operations.Solve(formula);
+        assertEquals("3+2*5=13", result, "El resultado de la operación es incorrecto.");
+    }
+    // Test de Anthony
+    @Test
+    public void testSolveConOperadoresMixtos() {
+        String formula = "7-4*3+9/3";
+        String result = Operations.Solve(formula);
+        assertEquals("7-4*3+9/3=-5", result, "El resultado de la operación es incorrecto.");
+    }
+    // Test de David
+    @Test
+    public void testSolveDivisionParaCero() {
+        
+        String formula = "5/0";
+        try {
+            Operations.Solve(formula);
+            fail("Se esperaba una excepción por división por cero.");
+        } catch (ArithmeticException e) {
+            assertTrue(true);
+        }
+    }
 }
+
